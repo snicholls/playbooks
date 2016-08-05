@@ -1,0 +1,14 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install the katello CA
+    yum:
+      name: 'http://vrsat6.antler.rhtxus.com/pub/katello-ca-consumer-latest.noarch.rpm'
+      state: present
+  - name: run a yum update
+    yum:
+      name: '*'
+      state: latest
+  

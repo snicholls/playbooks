@@ -1,0 +1,9 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks:
+  - name: install macspoof hook
+    yum:
+      name: vdsm-hook-macspoof
+      state: latest

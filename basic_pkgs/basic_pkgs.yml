@@ -1,0 +1,22 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: create the repo file
+    template:
+      src: templates/local.repo.j2
+      dest: /etc/yum.repos.d/local.repo
+  - name: import the basic RPM-GPG key
+    rpm_key:
+      state: present
+      key: /etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+  - name: install typical packages
+    yum:
+      name: rhevm-guest-agent-common
+      state: latest
+  - name: run a yum update
+    yum:
+      name: '*'
+      state: latest
+  
