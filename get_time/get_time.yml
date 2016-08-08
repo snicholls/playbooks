@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: get time from system
+    command: date
+
+
+
+
