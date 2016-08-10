@@ -1,0 +1,22 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install Apache
+    yum:
+      name: httpd
+      state: latest
+  - name: place custom homepage
+    unarchive:
+      src: index.tar
+      dest: /var/www/html/
+      group: apache
+      owner: apache
+  - name: enable and start httpd service
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+
+
