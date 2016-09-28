@@ -1,0 +1,17 @@
+---
+- hosts: control
+#  become: yes
+  tasks: 
+    - include_vars: cred.yml
+    - name: start 4 instances
+      ovirt:
+        user={{ User }}
+        url={{ RHEVM_Url }}
+        instance_name=ans-vm-{{ item }}
+        password={{ default_password }}
+        image={{ Image }}
+        region={{ DataCenter }}
+        zone={{ Zone }}
+        sdomain={{ SDomain }}
+        resource_type=template 
+      with_sequence: count={{ Quantity }}
