@@ -3,7 +3,7 @@
 #  become: yes
   tasks: 
     - include_vars: cred.yml
-    - name: start 4 instances
+    - name: start {{ Quantity }}  instances
       ovirt:
         user={{ User }}
         url={{ RHEVM_Url }}
