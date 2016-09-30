@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install the katello CA
+    yum:
+      name: 'http://vrsat6.antler.rhtxus.com/pub/katello-ca-consumer-latest.noarch.rpm'
+      state: present
+  - name: register with Red Hat Subscription Management or Satellite
+    redhat_subscription:
+      activationkey: RHEL7
+      org_id: antler
+      state: present
+  - name: install the katello-agent
+    yum:
+      name: katello-agent
+      state: latest
+
