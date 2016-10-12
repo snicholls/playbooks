@@ -3,7 +3,11 @@
   remote_user: ansible-exec
   become: yes
   tasks: 
-  - name: install the katello CA
+  - name: remove any previous Satellite CA
+    yum:
+      name: 'katello-ca-*'
+      state: absent
+  - name: install the current katello CA
     yum:
       name: 'http://vrlabsat.lab.rhtxus.com/pub/katello-ca-consumer-latest.noarch.rpm'
       state: present
