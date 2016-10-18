@@ -9,7 +9,7 @@
       state: absent
   - name: install the current katello CA
     yum:
-      name: 'http://vrlabsat.lab.rhtxus.com/pub/katello-ca-consumer-latest.noarch.rpm'
+      name: 'http://{{ satellite_fqdn }}/pub/katello-ca-consumer-latest.noarch.rpm'
       state: present
   - name: register with Red Hat Subscription Management or Satellite
     redhat_subscription:
