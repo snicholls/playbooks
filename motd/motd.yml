@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: add header line to motd
+    lineinfile:
+      create: yes
+      dest: /etc/motd
+      line: "Lines added by Ansible"
+  - name: add a line if the variable is passed
+    lineinfile:
+      dest: /etc/motd
+      line: "Variable: {{ my_string }}"
+    when: my_string is defined
+
+
