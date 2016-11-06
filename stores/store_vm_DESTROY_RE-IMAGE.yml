@@ -1,0 +1,34 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: Forcibly shutdown store VM
+    virt:
+      name: store-vm1
+      state: destroyed
+  - name: Undefine store VM
+    virt:
+      name: store-vm1
+      state: undefined
+  - name: Physically delete VM disk image
+    file: 
+      name: /var/lib/libvirt/images/store-vm1.qcow2
+      state: absent
+  - name: Replace base image
+    copy: 
+      backup: no
+      src: /root/store-vm1.qcow2
+      dest: /var/lib/libvirt/images/store-vm1.qcow2
+      force: yes
+  - name: Re-define VM
+    virt:
+      command: create
+      xml: /root/store-vm1.xml
+  - name: Ensure the store VM is running
+    virt:
+      name: store-vm1
+      state: running
+
+     
+
