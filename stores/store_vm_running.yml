@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: VM is in running state
+    virt:
+      name: store-vm1
+      state: running
+  
