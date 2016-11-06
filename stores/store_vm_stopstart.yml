@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: Forcibly shutdown VM
+    virt:
+      name: store-vm1
+      state: destroyed
+  - name: Pause 2 minutes to allow system to settle
+    pause:
+      minutes: 2
+  - name: Now set VM to running state
+    virt:
+      name: store-vm1
+      state: running
+  
