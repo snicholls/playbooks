@@ -10,7 +10,7 @@
   - name: Undefine store VM
     virt:
       name: store-vm1
-      state: undefined
+      command: undefine
   - name: Physically delete VM disk image
     file: 
       name: /var/lib/libvirt/images/store-vm1.qcow2
@@ -18,13 +18,17 @@
   - name: Replace base image
     copy: 
       backup: no
+      remote_src: True
       src: /root/store-vm1.qcow2
       dest: /var/lib/libvirt/images/store-vm1.qcow2
       force: yes
-  - name: Re-define VM
-    virt:
-      command: create
-      xml: /root/store-vm1.xml
+#  - name: Re-define VM
+#    virt:
+#      name: store-vm1
+#      command: define
+#      xml: /root/store-vm1.xml
+  - name: Re-define VM  #Using remote command with remote XML file - better way would be templates from Tower server      
+    command: "virsh define /root/store-vm1.xml"
   - name: Ensure the store VM is running
     virt:
       name: store-vm1
