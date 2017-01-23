@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+#  become: yes
+  tasks: 
+  - name: get system time
+    command: 'date +%Y%m%d:%H:%M:%S'
+    register: time_and_date
+  - debug: var=time_and_date.stdout_lines[0]
+  

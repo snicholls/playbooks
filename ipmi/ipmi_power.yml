@@ -1,0 +1,11 @@
+---
+- hosts: control
+#  become: yes
+  tasks: 
+  - name: Setting "{{ host_list }}" power state to "{{ state }}"
+    ipmi_power:
+      user: admin
+      password: admin
+      state: "{{ state }}"
+      name: ipmi-{{ host }}.antler.rhtxus.com
+    with_items: host={{ host_list }}

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: get list of VMs
+    virt:
+      command: list_vms
+    register: vm_list
+  - debug: var=vm_list.list_vms[0]
+  

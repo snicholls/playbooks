@@ -5,6 +5,7 @@
     my_uid: 9999
     my_group: ansible-exec
     my_gid: 9999
+    my_color: 37
   tasks: 
   - name: create the ansible-exec group
     group: 
@@ -32,6 +33,13 @@
       mode: 0600
       owner: "{{ my_user }}"
       group: "{{ my_group }}"
+
+  - name: colorize {{ my_user }} PS1
+    lineinfile:
+      dest: /home/{{ my_user }}/.bashrc
+      backup: no
+      state: present
+      line: 'PS1="[\[\033[1;{{ my_color }}m\]\u@\h \[\033[0m\]\W]\\$ "'
 
   - name: colorize root PS1
     lineinfile:
