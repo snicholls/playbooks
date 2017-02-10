@@ -1,0 +1,28 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install chrony
+    yum:
+      name: chrony
+      state: latest
+  - name: remove ntp pools
+    lineinfile:
+      create: no
+      dest: /etc/chrony.conf
+      state: absent
+      regexp: '^server [0-9]'
+  - name: add correct time server
+    lineinfile:
+      dest: /etc/chrony.conf
+      create: no
+      state: present
+      insertafter: '^# Please consider'
+      line: 'server proxy.antler.rhtxus.com iburst'
+  - name: enable and (re)start the service
+    service:
+      name: chronyd
+      enabled: yes
+      state: restarted
+
