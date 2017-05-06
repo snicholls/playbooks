@@ -1,0 +1,26 @@
+[OSEv3:vars]
+ansible_ssh_user=ansible-exec
+ansible_become=true
+
+[OSEv3]
+
+
+
+[lab]
+vaosemaster01.lab.rhtxus.com
+vaosenode01.lab.rhtxus.com
+vaosenode02.lab.rhtxus.com
+vaosenode03.lab.rhtxus.com
+
+[osp]
+instance152.cloud.rhtxus.com
+
+[masters]
+vaosemaster01.lab.rhtxus.com openshift_public_hostname=vaosemaster01.lab.rhtxus.com containerized=true
+
+[nodes]
+vaosenode01.lab.rhtxus.com openshift_public_hostname=vaosenode01.lab.rhtxus.com containerized=true
+vaosenode02.lab.rhtxus.com openshift_public_hostname=vaosenode02.lab.rhtxus.com containerized=true
+vaosenode03.lab.rhtxus.com openshift_public_hostname=vaosenode03.lab.rhtxus.com containerized=true
+
+

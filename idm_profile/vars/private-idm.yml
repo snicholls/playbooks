@@ -1,0 +1,21 @@
+---
+ipaserver_base_command: ipa-server-install -U
+ipaserver_configure_ssh: True
+ipaserver_configure_sshd: True
+ipaserver_dns_forwarder: 10.1.3.7
+ipaserver_domain: cloudapps.cloud.rhtxus.com
+ipaserver_hbac_allow: True
+ipaserver_idstart: 5000
+ipaserver_idmax: False
+ipaserver_mkhomedir: True
+ipaserver_packages:
+  - ipa-server
+  - ipa-server-dns
+  - bind
+  - bind-dyndb-ldap
+ipaserver_realm: CLOUDAPPS.CLOUD.RHTXUS.COM
+ipaserver_setup_dns: True
+ipaserver_setup_ntp: False
+ipaserver_ssh_trust_dns: True
+ipaserver_ui_redirect: True
+

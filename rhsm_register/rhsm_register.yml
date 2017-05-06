@@ -13,7 +13,7 @@
       state: present
   - name: register with Red Hat Subscription Management or Satellite
     redhat_subscription:
-      activationkey: RHEL7
+      activationkey: '{{ activation_key }}'
       org_id: antler
       state: present
   - name: install the katello-agent

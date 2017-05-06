@@ -1,0 +1,19 @@
+---
+- hosts: openstackapi
+#  become: yes
+  tasks: 
+    - name: create Demo project
+      os_project:
+        cloud: overcloud
+        state: present
+        name: DemoTenant
+        description: 'Demo Tenant'
+        enabled: True
+    - name: create Acme project
+      os_project:
+        cloud: overcloud
+        state: present
+        name: AcmeRockets
+        description: 'Acme Rockets Tenant'
+        enabled: True
+    

@@ -1,0 +1,6 @@
+[all]
+[hypervisors]
+fafnir.antler.rhtxus.com
+smaug.antler.rhtxus.com
+drogon.antler.rhtxus.com
+

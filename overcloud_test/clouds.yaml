@@ -1,0 +1,28 @@
+# clouds.yaml
+clouds: 
+  undercloud:
+    auth:
+      username: admin
+      password: admin
+      project_name: redhat
+      auth_url: 'http://undercloud.osp.rhtxus.com:5000/v2.0'
+  overcloud:
+    auth:
+      username: admin
+      password: gYD2zVbbKmDrHbZEr9XFhs8ps
+      project_name: admin
+      auth_url: 'http://horizon.cloud.rhtxus.com:5000/v2.0'
+  overcloud_demo:
+    auth:
+      username: demouser
+      password: redhat
+      project_name: DemoTenant
+      auth_url: 'http://horizon.cloud.rhtxus.com:5000/v2.0'
+  overcloud_acme:
+    auth:
+      username: wiley
+      password: redhat
+      project_name: AcmeRockets
+      auth_url: 'http://horizon.cloud.rhtxus.com:5000/v2.0'
+     
+

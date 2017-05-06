@@ -1,0 +1,7 @@
+  981  ansible-playbook -i "instance166.cloud.rhtxus.com," -b -u ansible-exec --private-key ~/.ssh/ansible_rsa add_ansible_exec.yml 
+  983  ansible-playbook -i "instance166.cloud.rhtxus.com," --private-key ~/.ssh/ansible_rsa -e satellite_fqdn=vrsat6.antler.rhtxus.com -e activation_key=RHEL7 rhsm_register.yml 
+  985  ansible-playbook -i "instance166.cloud.rhtxus.com," --private-key ~/.ssh/ansible_rsa yum-update.yml 
+  988  ansible-playbook -i "instance166.cloud.rhtxus.com," --private-key ~/.ssh/ansible_rsa config_chrony.yml 
+  991  ansible-playbook -i "instance166.cloud.rhtxus.com," --private-key ~/.ssh/ansible_rsa proxy_antler.yml 
+
+

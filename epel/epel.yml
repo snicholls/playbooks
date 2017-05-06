@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  environment:
+    http_proxy: 'http://proxy.antler.rhtxus.com:8080'
+    https_proxy: 'http://proxy.antler.rhtxus.com:8080'
+  tasks: 
+  - name: env check
+    command: "env"
+  - name: install EPEL-7
+    yum:
+      name: 'https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm'
+      state: present
+  - name: add GPG key for EPEL
+    rpm_key: 
+      state: present
+      key: /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7   
+    

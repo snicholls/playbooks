@@ -1,0 +1,6 @@
+[control]
+localhost ansible_connection=local
+
+[openstackapi]
+localhost ansible_connection=local ansible_python_interpreter="/usr/bin/env python"
+
