@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: Disable and stop NetworkManager
+    service:
+      name: NetworkManager
+      enabled: no
+      state: stopped
+  - name: enable legacy network service
+    service:
+      name: network
+      enabled: yes
+      state: restarted
+
+

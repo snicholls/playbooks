@@ -26,7 +26,7 @@
       dest: /etc/sudoers.d/ansible
       mode: 0440
 
-  - name: add private key
+  - name: add public key
     template:
       src: templates/authorized_keys.j2
       dest: /home/{{ my_user }}/.ssh/authorized_keys

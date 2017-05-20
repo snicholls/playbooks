@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: shutdown operating system
+    shell: sleep 2 && shutdown -r now
+    async: 1
+    poll: 0
+  - name: wait for system to come back up
+    local_action:
+      module: wait_for
+        host={{ ansible_default_ipv4.address }}
+        port=22
+        delay=20
+        timeout=300
+        state=started
+
