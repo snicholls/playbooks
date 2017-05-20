@@ -8,11 +8,11 @@
   - name: ipaserver_admin_password
     prompt: 'What should the admin password be for IPA? '
     private: yes
-    default: 'tahder1!'
+    default: 'redhat'
   - name: ipaserver_dir_admin_password
     prompt: 'What should the admin password be for the Directory Server? '
     private: yes
-    default: 'tahder1!'
+    default: 'redhat'
   tasks: 
   - name: install ipa-server
     yum:
