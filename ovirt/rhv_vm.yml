@@ -10,7 +10,7 @@
   tasks: 
     - name: get a RHV token
       ovirt_auth:
-        username: '{{ rhv_username }}'@antler.rhtxus.com
+        username: "{{ rhv_username }}@antler.rhtxus.com"
         password: '{{ rhv_password }}'
         #password: tahder1!
         url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
