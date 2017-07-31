@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+#  ansible_connection: local
+#  become: yes
+  vars_prompt:
+    - name: "rhv_password"
+      prompt: "Enter RHV password: "
+  tasks: 
+    - name: get a RHV token
+      ovirt_auth:
+        username: ansible-exec-idm@antler.rhtxus.com
+        password: '{{ rhv_password }}'
+        #password: tahder1!
+        url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
+        insecure: true
+
+    - name: create a VM
+      ovirt_vms:
+        auth: '{{ ovirt_auth }}'
+        name: ans_{{ ansible_date_time.iso8601_micro | to_uuid }}
+        template: demo-rhel-7-noci
+        clone: True
+        cluster: Trees
+        state: '{{ my_state }}'
+        stateless: False
+

@@ -16,11 +16,12 @@ ansible_become=true
 #instance152.cloud.rhtxus.com
 
 [masters]
-vrosemaster01.lab.rhtxus.com openshift_public_hostname=vrosemaster01.lab.rhtxus.com 
+vrocp01.lab.rhtxus.com openshift_public_hostname=vrocp01.lab.rhtxus.com 
 
 [nodes]
-vrosenode01.lab.rhtxus.com openshift_public_hostname=vrosenode01.lab.rhtxus.com
-vrosenode02.lab.rhtxus.com openshift_public_hostname=vrosenode02.lab.rhtxus.com
-#vrosenode03.lab.rhtxus.com openshift_public_hostname=vrosenode03.lab.rhtxus.com
+vrocp02.lab.rhtxus.com openshift_public_hostname=vrocp02.lab.rhtxus.com
+vrocp03.lab.rhtxus.com openshift_public_hostname=vrocp03.lab.rhtxus.com
+#vrocp04.lab.rhtxus.com openshift_public_hostname=vrocp04.lab.rhtxus.com
+#vrocp05.lab.rhtxus.com openshift_public_hostname=vrocp05.lab.rhtxus.com
 
 

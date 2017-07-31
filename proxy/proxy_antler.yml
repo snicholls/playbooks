@@ -3,7 +3,7 @@
   vars:
     my_proxy: 'proxy.antler.rhtxus.com'
     my_port: '8080'
-    no_proxy_list: '.rhtxus.com,10.0.0.0/8'
+    no_proxy_list: 'localhost,.rhtxus.com,10.0.0.0/8'
   remote_user: ansible-exec
   become: yes
   tasks: 

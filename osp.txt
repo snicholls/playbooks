@@ -1,7 +1,6 @@
-[all]
 [controller]
-10.0.5.101
+houston.cloud.rhtxus.com
 [compute]
-10.2.4.53
-10.2.4.54
-
+mercury.cloud.rhtxus.com
+gemini.cloud.rhtxus.com
+apollo.cloud.rhtxus.com
