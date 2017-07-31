@@ -8,6 +8,9 @@
     - name: "rhv_username"
       prompt: "Enter your RHV simple username without @profile"
       private: no
+    - name: "rhv_vmname"
+      prompt: "Enter a name for your VM"
+      private: no
   tasks: 
     - name: get a RHV token
       ovirt_auth:
@@ -18,8 +21,8 @@
 
     - name: create a VM
       ovirt_vms:
-        auth: '{{ ovirt_auth }}'
-        name: ans_{{ ansible_date_time.iso8601_micro | to_uuid }}
+        auth: "{{ ovirt_auth }}"
+        name: "{{ rhv_vmname }}"
         template: demo-rhel-7-noci
         clone: True
         cluster: Trees
@@ -27,9 +30,6 @@
         stateless: False
       register: my_vm
 
-    - debug:
-        var: my_vm.id
-     
     - name: enable permissions on new VM
       ovirt_permissions:
         auth: '{{ ovirt_auth }}'
