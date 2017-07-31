@@ -4,11 +4,13 @@
 #  become: yes
   vars_prompt:
     - name: "rhv_password"
-      prompt: "Enter RHV password: "
+      prompt: "Enter RHV password"
+    - name: "rhv_username"
+      prompt: "Enter RHV simple username without @profile"
   tasks: 
     - name: get a RHV token
       ovirt_auth:
-        username: ansible-exec-idm@antler.rhtxus.com
+        username: '{{ rhv_username }}'@antler.rhtxus.com
         password: '{{ rhv_password }}'
         #password: tahder1!
         url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
