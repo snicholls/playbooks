@@ -23,7 +23,7 @@
       ovirt_vms:
         auth: "{{ ovirt_auth }}"
         name: "{{ rhv_vmname }}"
-        template: demo-rhel-7-noci
+        template: "{{ rhv_template_name }}"
         clone: True
         cluster: Trees
         state: '{{ my_state }}'
