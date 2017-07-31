@@ -24,10 +24,11 @@
         auth: "{{ ovirt_auth }}"
         name: "{{ rhv_vmname }}"
         template: "{{ rhv_template_name }}"
-        clone: True
+        #clone: True
         cluster: Trees
         state: '{{ my_state }}'
         stateless: False
+        use_latest_template_version: True
       register: my_vm
 
     - name: enable permissions on new VM
