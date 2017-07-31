@@ -3,16 +3,16 @@
 #  ansible_connection: local
 #  become: yes
   vars_prompt:
-    - name: "rhv_password"
-      prompt: "Enter RHV password"
+#    - name: "rhv_password"
+#      prompt: "Enter RHV password"
     - name: "rhv_username"
-      prompt: "Enter RHV simple username without @profile"
+      prompt: "Enter your RHV simple username without @profile"
+      private: no
   tasks: 
     - name: get a RHV token
       ovirt_auth:
-        username: "{{ rhv_username }}@antler.rhtxus.com"
-        password: '{{ rhv_password }}'
-        #password: tahder1!
+        username: "rhevadmin@antler.rhtxus.com"
+        password: 'tahder1!'
         url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
         insecure: true
 
@@ -25,4 +25,17 @@
         cluster: Trees
         state: '{{ my_state }}'
         stateless: False
+      register: my_vm
+
+    - debug:
+        var: my_vm.id
+     
+    - name: enable permissions on new VM
+      ovirt_permissions:
+        auth: '{{ ovirt_auth }}'
+        user_name: "{{ rhv_username }}"
+        authz_name: antler.rhtxus.com-authz
+        object_type: vm
+        object_id: "{{ my_vm.id }}"
+        role: UserVmManager
 
