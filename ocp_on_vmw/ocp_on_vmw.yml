@@ -1,0 +1,89 @@
+---
+- name: Deploy instances on vCenter for RH OpenShift Container Platform
+  hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: "vcenter_host"
+      prompt: "Enter vCenter host name"
+      private: no
+      default: "vcenter.antler.rhtxus.com"
+    - name: "vcenter_user"
+      prompt: "Enter vCenter username"
+      private: no
+    - name: "vcenter_password"
+      prompt: "Enter vCenter password"
+      private: yes
+    - name: "ctl_count"
+      prompt: "Enter number of OCP Control Nodes"
+      private: no
+      default: 1
+    - name: "node_count"
+      prompt: "Enter number of OCP Application Nodes"
+      private: no
+      default: 3
+  vars: 
+    control_prefix: 'vrocpctl'
+    node_prefix: 'vrocpnod'
+    control_mem: 6144
+    node_mem: 8192
+  tasks:
+    - name: Create Control Virtual Machine(s)
+      vsphere_guest: 
+        vcenter_hostname: "{{ vcenter_host }}"
+        validate_certs: no
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_password }}"
+        guest: "{{ control_prefix }}{{ item }}"
+        from_template: yes
+        template_src: RHEL7-template-vmw
+        #datacenter: AntlerLab
+        esxi: 
+          datacenter: AntlerLab
+          hostname: apollo.osp.rhtxus.com
+        cluster: TRS
+        #resource_pool: "LinuxWorkloads"
+        vm_disk:
+          disk1:
+            size_gb: 20
+            type: thin
+            datastore: DataStoreCluster02
+        vm_hardware:
+          memory_mb: "{{ control_mem }}"
+        vm_nic: 
+          nic1: 
+            type: vmxnet3
+            network: 'VLAN601'
+            network_type: dvs
+        vm_extra_config: 
+          folder: 'Linux VMs'
+      with_sequence: count={{ ctl_count }} format='%02d'
+    - name: Create Application Virtual Machine(s)
+      vsphere_guest: 
+        vcenter_hostname: "{{ vcenter_host }}"
+        validate_certs: no
+        username: "{{ vcenter_user }}"
+        password: "{{ vcenter_password }}"
+        guest: "{{ node_prefix }}{{ item }}"
+        from_template: yes
+        template_src: RHEL7-template-vmw
+        #datacenter: AntlerLab
+        esxi: 
+          datacenter: AntlerLab
+          hostname: gemini.osp.rhtxus.com
+        cluster: TRS
+        #resource_pool: "LinuxWorkloads"
+        vm_disk:
+          disk1:
+            size_gb: 20
+            type: thin
+            datastore: DataStoreCluster02
+        vm_hardware:
+          memory_mb: "{{ node_mem }}"
+        vm_nic: 
+          nic1: 
+            type: vmxnet3
+            network: 'VLAN601'
+            network_type: dvs
+        vm_extra_config: 
+          folder: 'Linux VMs'
+      with_sequence: count={{ node_count }} format='%02d'

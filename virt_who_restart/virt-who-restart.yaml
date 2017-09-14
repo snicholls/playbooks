@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: restart the service
+    service:
+      name: virt-who
+      enabled: yes
+      state: restarted
+

@@ -1,0 +1,17 @@
+$ORIGIN 6.0.10.in-addr.arpa
+$TTL 86400
+@     IN     SOA    vrutil1.myapps.example.com.     hostmaster.myapps.example.com. (
+                    2017071401 ; serial
+                    21600      ; refresh after 6 hours
+                    3600       ; retry after 1 hour
+                    604800     ; expire after 1 week
+                    86400 )    ; minimum TTL of 1 day
+
+      IN     NS     vrutil1.myapps.example.com.
+
+61    IN     PTR    vrutil1.myapps.example.com.
+62    IN     PTR    vrutil2.myapps.example.com.
+63    IN     PTR    ocpmaster.myapps.example.com.
+64    IN     PTR    ocpnode01.myapps.example.com.
+65    IN     PTR    ocpnode02.myapps.example.com.
+66    IN     PTR    ocpnode03.myapps.example.com.

@@ -15,7 +15,7 @@
     - name: get a RHV token
       ovirt_auth:
         username: "rhevadmin@antler.rhtxus.com"
-        password: 'tahder1!'
+        password: "{{ rhv_password | 'password' }}"
         url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
         insecure: true
 

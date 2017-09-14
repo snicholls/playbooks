@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install Red Hat Access Insights
+    yum:
+      name: redhat-access-insights
+      state: latest
+  - name: register to Insights
+    command: '/bin/redhat-access-insights --register'
+
+

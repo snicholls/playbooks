@@ -1,0 +1,13 @@
+---
+- hosts: all
+  vars:
+    my_proxy: 'proxy.antler.rhtxus.com'
+    my_port: '8080'
+    no_proxy_list: '.rhtxus.com,10.0.0.0/8'
+  tasks: 
+  - name: create the profile proxy file
+    template:
+      src: templates/proxy.sh.j2
+      dest: /etc/profile.d/proxy.sh
+      mode: 0644
+

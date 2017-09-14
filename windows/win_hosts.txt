@@ -1,0 +1,12 @@
+[all:vars]
+ansible_connection=winrm
+ansible_winrm_server_cert_validation=ignore
+
+[win]
+vwat001 ansible_host=10.0.6.81
+vwat002 ansible_host=10.0.6.82
+vwat003 ansible_host=10.0.6.83
+vwat004 ansible_host=10.0.6.84
+
+[dc]
+vwad01 ansible_host=10.0.6.80

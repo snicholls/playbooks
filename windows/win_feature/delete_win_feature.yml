@@ -1,0 +1,16 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  vars:
+    my_feature: 'Web-WebServer'
+    my_feature_description: "Uninstall IIS Web Server"
+  tasks: 
+  - name: "{{ my_feature_description }}"
+    win_feature:
+      name: "{{ my_feature }}"
+      state: absent
+    register: feature_result
+  - name: reboot if necessary
+    win_reboot: 
+    when: feature_result.restart_needed
+

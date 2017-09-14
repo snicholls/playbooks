@@ -1,0 +1,15 @@
+---
+- hosts: all
+  remote_user: administrator
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+  tasks: 
+  - name: a directory
+    win_file:
+      name: C:\Temp
+      state: directory
+  - name: touch a file
+    win_file: 
+      name: C:\Temp\my_file.txt
+      state: touch

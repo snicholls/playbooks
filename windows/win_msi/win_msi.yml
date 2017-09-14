@@ -1,0 +1,20 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  vars:
+  tasks: 
+  - name: "install {{ package_to_install }}"
+    win_package:
+      path: .\
+      state: present
+      include_sub_features: false #apparently there's an issue with 2008R2 and IIS sub-features?
+      include_management_tools: true
+    register: feature_result
+  - name: modify a file
+    win_template: 
+      src: index.htm.j2
+      dest: C:\inetpub\wwwroot\index.htm
+  - name: reboot if necessary
+    win_reboot: 
+    when: feature_result.restart_needed
+

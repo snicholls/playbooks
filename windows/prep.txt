@@ -1,0 +1,21 @@
+Upgrade to PowerShell 3.0:
+https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/upgrade_to_ps3.ps1
+
+Prepare system for Ansible:
+https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1
+
+If Windows doesn't allow PowerShell to run:
+set-executionpolicy remotesigned
+
+setup/GVLK:
+Windows Server 2012 R2 Datacenter
+W3GGN-FT8W3-Y4M27-J84CP-Q3VJ9
+
+Windows Server 2016 Operating system edition KMS Client Setup Key
+Windows Server 2016 Datacenter
+CB7KF-BWN84-R7R2Y-793K2-8XDDG
+Windows Server 2016 Standard
+WC2BQ-8NRM3-FDDYY-2BFGV-KHKQY
+Windows Server 2016 Essentials
+JCKRF-N37P4-C2D82-9YXRT-4M63B
+

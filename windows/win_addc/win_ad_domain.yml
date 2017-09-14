@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: administrator
+  vars:
+    my_domain: winad.rhtxus.com
+  tasks: 
+  - name: create new WinAD Domain
+    # May be necessary to first update local Admin password to "required" as per:
+    # net user Administrator S0meP@ssword /passwordreq:yes
+    win_domain:
+      dns_domain_name: '{{ my_domain }}'
+      safe_mode_password: 'RedHat1!'
+    register: domain_result
+  - name: reboot if necessary
+    win_reboot: 
+    when: domain_result.reboot_required
+

@@ -1,0 +1,6 @@
+[controller]
+houston.osp.rhtxus.com
+[compute]
+mercury.osp.rhtxus.com
+gemini.osp.rhtxus.com
+apollo.osp.rhtxus.com
