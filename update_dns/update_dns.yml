@@ -1,0 +1,32 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: remove old resolv.conf entry
+    lineinfile:
+      create: no
+      dest: /etc/resolv.conf
+      state: absent
+      regexp: '^nameserver 10.1.3.7' 
+  - name: add correct resolv.conf entry
+    lineinfile:
+      dest: /etc/resolv.conf
+      create: no
+      state: present
+      line: 'nameserver 10.1.3.10'
+  - name: remove from ifcfg files
+    lineinfile:
+      dest: /etc/sysconfig/network-scripts/ifcfg-e*
+      create: no
+      regexp: '^DNS*=10.1.3.7'
+      state: absent
+  - name: verify ifcfg-files
+    lineinfile:
+      dest: /etc/sysconfig/network-scripts/ifcfg-{{ ansible_default_ipv4.interface }}
+      create: no
+      line: 'DNS1=10.1.3.10'
+      state: present
+#    with_items: "{{ ansible_interfaces }}"
+#    when: item != 'lo' 
+
