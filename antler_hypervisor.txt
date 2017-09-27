@@ -1,6 +1,11 @@
-[all]
-[hypervisors]
+[dragons]
 fafnir.antler.rhtxus.com
 smaug.antler.rhtxus.com
 drogon.antler.rhtxus.com
+
+[trees]
+oak.antler.rhtxus.com
+elm.antler.rhtxus.com
+
+
 

@@ -1,0 +1,17 @@
+[all:vars]
+ansible_connection=local
+pxe_host=vrutil.antler.rhtxus.com
+
+[hypers:vars]
+ipmi_username=admin
+ipmi_password=admin
+esxi_installdev=usb
+vsan_cachedev=sda
+vsan_capacitydev=sdb
+
+[hypers]
+mercury.osp.rhtxus.com ipmi_host=ipmi-mercury.antler.rhtxus.com pxe_mac=d0-50-99-c0-69-ec
+gemini.osp.rhtxus.com ipmi_host=ipmi-gemini.antler.rhtxus.com pxe_mac=d0-50-99-c0-6b-ce
+apollo.osp.rhtxus.com ipmi_host=ipmi-apollo.antler.rhtxus.com pxe_mac=d0-50-99-c0-6b-4e
+
+

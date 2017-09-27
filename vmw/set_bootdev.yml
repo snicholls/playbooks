@@ -1,0 +1,14 @@
+---
+- hosts: hypers
+  gather_facts: no
+#  become: yes
+  vars:
+    device: "{{ boot_device | default('hd') }}"
+  tasks: 
+  - name: Setting bootdevice to "{{ device }}"
+    ipmi_boot:
+      user: "{{ ipmi_username }}"
+      password: "{{ ipmi_password }}"
+      bootdev: "{{ device }}"
+      persistent: yes
+      name: "{{ ipmi_host }}"

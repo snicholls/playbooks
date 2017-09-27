@@ -1,0 +1,11 @@
+---
+- hosts: hypers
+  gather_facts: no
+#  become: yes
+  tasks: 
+  - name: Setting power state to {{ state }}
+    ipmi_power:
+      user: "{{ ipmi_username }}"
+      password: "{{ ipmi_password }}"
+      state: "{{ state }}"
+      name: "{{ ipmi_host }}"

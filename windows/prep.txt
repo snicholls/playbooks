@@ -1,3 +1,6 @@
+Proxy on 2016:
+netsh winhttp set proxy <proxyservername:portnumber>
+
 Upgrade to PowerShell 3.0:
 https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/upgrade_to_ps3.ps1
 

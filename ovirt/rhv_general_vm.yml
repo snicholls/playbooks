@@ -1,0 +1,36 @@
+---
+- hosts: localhost
+#  ansible_connection: local
+#  become: yes
+  vars_prompt:
+#    - name: "rhv_password"
+#      prompt: "Enter RHV password"
+    - name: "rhv_username"
+      prompt: "Enter your RHV simple username without @profile"
+      private: no
+    - name: "rhv_password"
+      prompt: "Enter the password for RHV API"
+      private: yes
+    - name: "rhv_vmname"
+      prompt: "Enter a name for your VM"
+      private: no
+  tasks: 
+    - name: get a RHV token
+      ovirt_auth:
+        username: "{{ rhv_username }}@internal"
+        password: "{{ rhv_password | default('password') }}"
+        url: https://vrhvm1.antler.rhtxus.com/ovirt-engine/api
+        insecure: true
+
+    - name: create a VM
+      ovirt_vms:
+        auth: "{{ ovirt_auth }}"
+        name: "{{ rhv_vmname }}"
+        template: "{{ rhv_template_name | default('antler-base-template-rhel7') }}"
+        #clone: True
+        cluster: "{{ rhv_cluster | default('Dragons') }}"
+        state: "{{ my_state | default('running') }}"
+        stateless: False
+        use_latest_template_version: True
+      register: my_vm
+

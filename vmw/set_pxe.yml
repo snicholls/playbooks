@@ -1,0 +1,18 @@
+---
+- hosts: hypers
+  gather_facts: no
+  vars:
+    ansible_connection: ssh
+    ansible_ssh_host: "{{ pxe_host }}"
+    ansible_user: ansible-exec
+    ontimeout: "{{ bootdev | default('local') }}"
+  become: yes
+  tasks: 
+  - name: Setting PXE timeout action to "{{ ontimeout }}" on {{ pxe_host }}
+    lineinfile:
+      regexp: '^ONTIMEOUT'
+      insertafter: '^TOTALTIMEOUT'
+      line: "ONTIMEOUT {{ ontimeout }}"
+      create: no
+      state: present
+      path: /var/lib/tftpboot/pxelinux.cfg/01-{{ pxe_mac }}
