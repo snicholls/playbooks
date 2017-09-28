@@ -1,0 +1,55 @@
+---
+#
+# if "build=true" is not passed to this playbook, it will set the build flag to false in Satellite for the inventory.  It will skip power actions. 
+#
+- hosts: foreman_hostgroup_trs_hypervisors
+  gather_facts: no
+#  become: yes
+  vars:
+    build_flag: "{{ build | default('false') }}"
+    satellite_url: "{{ satellite | default('https://vrsat6.antler.rhtxus.com') }}"
+    sat_user: "{{ satellite_user | default('registrar') }}"
+    sat_password: "{{ satellite_password | default('redhat') }}"
+  tasks: 
+  - name: Power off host(s)
+    ipmi_power:
+      user: 'admin'
+      password: 'admin'
+      state: off
+      name: "{{ foreman.sp_ip }}"
+    when:  build_flag|bool == true
+  - name: Get system id from Satelite
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ sat_user }}"
+      password: "{{ sat_password }}"
+      force_basic_auth: yes
+      url: "{{ satellite_url }}/api/v2/hosts/{{ inventory_hostname }}"
+      #return_content: yes
+    register: content
+  - name: Setting Satellite boot flag to {{ build_flag }}
+    uri:
+      headers:
+        Content-Type: application/json
+      user: "{{ sat_user }}"
+      password: "{{ sat_password }}"
+      force_basic_auth: yes
+      method: PUT
+      url: "{{ satellite_url }}/api/v2/hosts/{{ content.json.id }}"
+      body:
+        build: "{{ build_flag }}"
+      body_format: json
+      return_content: no
+    register: set_response
+  - debug:
+      var: set_response.json.build
+  - name: Power on host(s)
+    ipmi_power:
+      user: 'admin'
+      password: 'admin'
+      state: on
+      name: "{{ foreman.sp_ip }}"
+    when:  build_flag|bool == true
+
+
