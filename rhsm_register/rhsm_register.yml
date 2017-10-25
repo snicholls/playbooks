@@ -14,7 +14,7 @@
   - name: register with Red Hat Subscription Management or Satellite
     redhat_subscription:
       activationkey: '{{ activation_key }}'
-      org_id: antler
+      org_id: "{{ org }}"
       state: present
   - name: install the katello-agent
     yum:
