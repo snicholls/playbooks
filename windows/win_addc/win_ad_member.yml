@@ -1,0 +1,28 @@
+---
+# Join a Windows server to the domain.  
+# String upper and split gyrations are to get DOMAIN\user to pass to non-interactive PowerShell. Note double backslash also.
+- hosts: all
+  remote_user: administrator
+  vars:
+    my_domain: "{{ domain|default('winad.rhtxus.com') }}"
+    ansible_winrm_transport: credssp
+    NB_domain: "{{ my_domain|upper }}"
+  vars_prompt:
+    - name: join_password 
+      prompt: "Password for account to join domain"
+      private: yes
+    - name: join_user
+      prompt: "User with rights to join domain"
+      private: no
+  tasks: 
+  - name: join Windows domain
+    win_domain_membership:
+      dns_domain_name: '{{ my_domain }}'
+      domain_admin_password: "{{ join_password|default('redhat') }}"
+      domain_admin_user: "{{ NB_domain.split('.')[0] }}\\{{ join_user|default('join') }}"
+      state: domain
+    register: domain_result
+  - name: reboot if necessary
+    win_reboot: 
+    when: domain_result.reboot_required
+

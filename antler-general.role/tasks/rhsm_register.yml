@@ -1,0 +1,23 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: remove any previous Satellite CA
+    yum:
+      name: 'katello-ca-*'
+      state: absent
+  - name: install the current katello CA
+    yum:
+      name: 'http://{{ satellite_fqdn }}/pub/katello-ca-consumer-latest.noarch.rpm'
+      state: present
+  - name: register with Red Hat Subscription Management or Satellite
+    redhat_subscription:
+      activationkey: '{{ activation_key }}'
+      org_id: "{{ org }}"
+      state: present
+  - name: install the katello-agent
+    yum:
+      name: katello-agent
+      state: latest
+

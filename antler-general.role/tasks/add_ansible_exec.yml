@@ -1,0 +1,53 @@
+---
+- hosts: all
+  vars: 
+    my_user: ansible-exec
+    my_uid: 9999
+    my_group: ansible-exec
+    my_gid: 9999
+    my_color: 37
+  tasks: 
+  - name: create the ansible-exec group
+    group: 
+      name: "{{ my_group }}"
+      gid: "{{ my_gid }}"
+
+  - name: create the ansible-exec user
+    user:
+      name: "{{ my_user }}"
+      uid: "{{ my_uid }}"
+      group: "{{ my_group }}"
+      groups: "wheel"
+      generate_ssh_key: yes
+  
+  - name: add to sudoers
+    template: 
+      src: templates/user_sudoer.j2
+      dest: /etc/sudoers.d/ansible
+      mode: 0440
+
+  - name: add public key
+    template:
+      src: templates/authorized_keys.j2
+      dest: /home/{{ my_user }}/.ssh/authorized_keys
+      mode: 0600
+      owner: "{{ my_user }}"
+      group: "{{ my_group }}"
+
+  - name: colorize {{ my_user }} PS1
+    lineinfile:
+      dest: /home/{{ my_user }}/.bashrc
+      backup: no
+      state: present
+      line: 'PS1="[\[\033[1;{{ my_color }}m\]\u@\h \[\033[0m\]\W]\\$ "'
+
+  - name: colorize root PS1
+    lineinfile:
+      dest: /root/.bashrc
+      backup: no
+      state: present
+      line: 'PS1="[\[\033[1;31m\]\u@\h \[\033[0m\]\W]\\$ "'
+
+
+
+

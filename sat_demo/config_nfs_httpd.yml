@@ -1,0 +1,48 @@
+---
+#
+- hosts: foreman_hostgroup_trs_hypervisors
+#- hosts: all
+  gather_facts: yes
+  become: yes
+  tasks: 
+  - name: install NFS and HTTPD
+    yum:
+      name: "{{ item }}"
+      state: latest
+    with_items:
+      - httpd
+      - nfs-utils
+      - libsemanage-python
+      - mod_ssl
+    notify: Restart HTTPD
+  - name: Enable SELinux HTTPD to use NFS
+    seboolean:
+      name: httpd_use_nfs
+      persistent: yes
+      state: yes
+    notify: Restart HTTPD
+  - name: Configure NFS mount
+    mount:
+      fstype: nfs
+      state: mounted
+      path: /var/www/html
+      src: "{{ nfs_server }}:{{ nfs_mount }}"
+    notify: Restart HTTPD
+  - name: Open firewall ports
+    firewalld:
+      immediate: yes
+      state: enabled
+      service: "{{ item }}"
+      permanent: yes
+    with_items:
+        - http
+        - https
+    notify: Restart HTTPD
+  handlers:
+  - name: Restart HTTPD
+    service:
+      name: httpd
+      enabled: yes
+      state: restarted
+
+

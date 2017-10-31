@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install ovirt guest agent package
+    yum:
+      name: ovirt-guest-agent-common
+      state: latest
+  

@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: administrator
+  vars:
+    ansible_winrm_transport: basic
+    my_addc: "{{ domain_controller|default('vwad01.winad.rhtxus.com') }}"
+  tasks: 
+  - name: enable CredSSP first
+    win_shell: "Enable-WSManCredSSP -Role CLient -DelegateComputer {{ my_addc }} -Force"
+

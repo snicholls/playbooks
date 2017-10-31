@@ -1,0 +1,26 @@
+---
+- hosts: all
+  remote_user: administrator
+  vars:
+    my_domain: "{{ domain|default('winad.rhtxus.com') }}"
+    ansible_winrm_transport: credssp
+  vars_prompt:
+    - name: join_user
+      prompt: "User with rights to un-join"
+      private: no
+    - name: join_password 
+      prompt: "Password for account to un-join "
+      private: yes
+  tasks: 
+  - name: un-join Windows domain
+    win_domain_membership:
+      dns_domain_name: '{{ my_domain }}'
+      domain_admin_password: "{{ join_password|default('redhat') }}"
+      domain_admin_user: "{{ join_user|default('join') }}"
+      state: workgroup
+      workgroup_name: WORKGROUP
+    register: domain_result
+  - name: reboot if necessary
+    win_reboot: 
+    when: domain_result.reboot_required
+

@@ -1,0 +1,10 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: run a yum update
+    package:
+      name: '*'
+      state: latest
+  
