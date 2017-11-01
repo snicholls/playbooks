@@ -8,12 +8,12 @@
     ansible_winrm_transport: credssp
     NB_domain: "{{ my_domain|upper }}"
   vars_prompt:
-    - name: join_password 
-      prompt: "Password for account to join domain"
-      private: yes
     - name: join_user
       prompt: "User with rights to join domain"
       private: no
+    - name: join_password 
+      prompt: "Password for account to join domain"
+      private: yes
   tasks: 
   - name: join Windows domain
     win_domain_membership:

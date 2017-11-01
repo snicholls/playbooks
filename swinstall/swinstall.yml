@@ -1,0 +1,12 @@
+---
+- hosts: all
+  remote_user: ansible-exec
+  become: yes
+  tasks: 
+  - name: install software
+    package:
+      name: "{{ item }}"
+      state: latest
+    with_items: "{{ swlist }}"
+
+  
